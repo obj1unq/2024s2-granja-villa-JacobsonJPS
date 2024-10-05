@@ -27,13 +27,13 @@ object hector {
 
 	
 	method decirPosesiones(){
-		game.say(self,"Tengo " + granja.plantasCosechadas().size() + " plantas para vender y " + cantidadDeOro + " monedas de oro")
+		game.say(self,"Tengo " + granja.plantasCosechadas().size() + "plantas para vender y " + cantidadDeOro + "monedas de oro")
 	}
 
 	method vender(){
 		self.validarSiEstaEnMercado()
 		granja.mercadoEn(position).comprarProductos(granja.profit(), granja.plantasCosechadas())
-		cantidadDeOro += granja.profit()
+		cantidadDeOro = cantidadDeOro + granja.profit()
 		granja.vaciarAlmacen()
 	}
 

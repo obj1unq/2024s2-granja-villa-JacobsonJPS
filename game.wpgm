@@ -38,6 +38,7 @@ program farmville {
  	granja.agregarMercados()
 	game.addVisualCharacter(hector)
 
+	
 	game.onTick(1000, "riego", { granja.aspersorRegar() })
  	
  	//  COMIENZA

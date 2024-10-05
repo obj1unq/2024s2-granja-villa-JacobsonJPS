@@ -1,9 +1,104 @@
-import example.pepita
+import wollok.game.*
+import cultivos.*
+import hector.*
+import granja.*
+import mercado.*
+import regadores.*
 
-describe "group of tests for pepita" {
+describe "Hector plantando cultivos" {
 
-  test "pepita has initial energy" {
-    assert.equals(100, pepita.energy())
+  method initializer() {
+    game.title("La granja de Hector")
+    game.height(10)
+    game.width(10)
+    hector.position (game.at(1,1))
+    hector.cantidadDeOro(0)
+    granja.cultivos.clear()
+    granja.plantasCosechadas.clear()
+  }
+
+  test "Hector siembra un maíz" {
+    const maiz = new Maiz()
+    hector.sembrar(maiz)
+    assert.equals([maiz], granja.plantasEn(hector.position()))
+  }
+
+  test "Hector siembra un trigo" {
+    const trigo = new Trigo()
+    hector.sembrar(trigo)
+    assert.equals([trigo], granja.plantasEn(hector.position()))
+  }
+
+  test "Hector siembra un tomaco" {
+    const tomaco = new Tomaco()
+    hector.sembrar(tomaco)
+    assert.equals([tomaco], granja.plantasEn(hector.position()))
+  }
+
+}
+
+
+describe "Héctor regando cultivos" {
+
+  method initializer() {
+    game.title("La granja de Héctor")
+    game.height(10)
+    game.width(10)
+    hector.position(game.at(1, 1))
+    granja.cultivos.clear()
+  }
+
+  test "Héctor no puede regar sin plantas" {
+    assert.throwsException({ hector.regar() })
+  }
+
+  
+  test "Héctor riega un trigo y avanza de etapa" {
+    const trigo = new Trigo()
+    hector.sembrar(trigo)
+    assert.equals(0, trigo.etapa())
+    hector.regar()
+    assert.equals(1, trigo.etapa())
+    hector.regar()
+    assert.equals(2, trigo.etapa())
+  }
+
+  
+}
+
+describe "Héctor cosechando cultivos" {
+
+  method initializer() {
+    game.title("La granja de Héctor")
+    game.height(10)
+    game.width(10)
+    hector.position (game.at(1, 1))
+    granja.cultivos.clear()
+    granja.plantasCosechadas.clear()
+  }
+
+  test "Héctor intenta cosechar sin plantas y falla" {
+    assert.throwsException({ hector.cosechar() })
+  }
+
+}
+
+
+describe "Héctor vendiendo cosechas" {
+
+  method initializer() {
+    game.title("La granja de Héctor")
+    game.height(10)
+    game.width(10)
+    hector.position (game.at(0, 0))
+    hector.cantidadDeOro(0)
+    granja.agregarMercados()
+    granja.plantasCosechadas.clear()
+  }
+
+    test "Héctor no puede vender si no está en un mercado" {
+    hector.position(game.at(5, 5))
+    assert.throwsException({ hector.vender() })
   }
 
 }
