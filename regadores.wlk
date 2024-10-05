@@ -4,12 +4,17 @@ import granja.*
 class Aspersor {
     var property position = game.at(0,0)
 
+    method regarPosicion(xOffset, yOffset) {
+        granja.plantasEn(game.at(position.x() + xOffset, position.y() + yOffset)).forEach({ planta => planta.evolucionar() })
+    }
+
     method regar() {
-        granja.plantasEn(game.at(position.x()+1,position.y())).forEach({planta => planta.evolucionar()})
-        granja.plantasEn(game.at(position.x(),position.y()-1)).forEach({planta => planta.evolucionar()})
-        granja.plantasEn(game.at(position.x()-1,position.y())).forEach({planta => planta.evolucionar()})
-        granja.plantasEn(game.at(position.x(),position.y()+1)).forEach({planta => planta.evolucionar()})
-    } 
+        self.regarPosicion(1, 0)   // Derecha
+        self.regarPosicion(0, -1)  // Arriba
+        self.regarPosicion(-1, 0)  // Izquierda
+        self.regarPosicion(0, 1)   // Abajo
+    }
+    
 
     method image(){
         return "aspersor.png"
@@ -20,3 +25,6 @@ class Aspersor {
         game.addVisual(self)
     }
 }
+
+
+
