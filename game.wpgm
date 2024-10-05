@@ -3,6 +3,7 @@ import hector.*
 import cultivos.*
 import granja.*
 import regadores.*
+import mercado.*
 
 program farmville {
 	//  CONFIG	
@@ -11,8 +12,33 @@ program farmville {
 	game.width(10)
 	game.ground("ground.png")
 
+	//  ACCIONES DE HECTOR
+	
+	//HECTOR SIEMBRA
+	keyboard.m().onPressDo({hector.sembrar(new Maiz())})
+	keyboard.t().onPressDo({hector.sembrar(new Trigo())})
+	keyboard.o().onPressDo({hector.sembrar(new Tomaco())})
+	
+	//HECTOR RIEGA
+	keyboard.r().onPressDo({hector.regar()})
+	
+	//HECTOR COSECHA
+	keyboard.c().onPressDo({hector.cosechar()})
+	
+	//HECTOR DICE SUS POSESIONES
+	keyboard.space().onPressDo({hector.decirPosesiones()})
+	
+	//HECTOR VENDE
+	keyboard.v().onPressDo({hector.vender()})
+	
+	//HECTOR AGREGA UN ASPERSOR PARA REGAR
+	keyboard.a().onPressDo({hector.instalarAspersor(new Aspersor())})
+	
 	//  VISUALES
- 	game.addVisualCharacter(hector)
+ 	granja.agregarMercados()
+	game.addVisualCharacter(hector)
+
+	game.onTick(1000, "riego", { granja.aspersorRegar() })
  	
  	//  COMIENZA
 	game.start()

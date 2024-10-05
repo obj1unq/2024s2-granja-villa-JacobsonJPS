@@ -13,12 +13,12 @@ class Maiz {
 		return madurez
 	}
 
-	method sembrado(posicion){
+	method plantar(posicion){
 		position = posicion
 		game.addVisual(self)
 	}
 
-	method crecer(){
+	method evolucionar(){
 		madurez = "adult"
 	}
 
@@ -43,12 +43,12 @@ class Trigo {
 		return "wheat_"+ etapa + ".png"
 	}
 	
-	method sembrado(posicion){
+	method plantar(posicion){
 		position = posicion
 		game.addVisual(self)
 	}
 
-	method crecer(){
+	method evolucionar(){
 		etapa = (etapa + 1) % 4
 	}
 
@@ -78,7 +78,7 @@ class Tomaco {
 		return "tomaco.png"
 	}
 
-	method sembrado(posicion){
+	method plantar(posicion){
 		position = posicion
 		game.addVisual(self)
 	}
@@ -87,7 +87,7 @@ class Tomaco {
 		
 	
 
-	method crecer(){
+	method evolucionar(){
 		position = game.at(position.x(), (game.height() - 1).min(position.y() + 1))
 	}
 
